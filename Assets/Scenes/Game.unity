@@ -261,6 +261,7 @@ MonoBehaviour:
   _shieldVisualizer: {fileID: 56821353}
   _fireRate: 0.15
   _canFire: -1
+  _shieldStrength: 0
   _lives: 3
   tripleShotActive: 0
   speedBoostActive: 0
@@ -1882,7 +1883,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1879584543
 MonoBehaviour:
@@ -2179,7 +2180,7 @@ PrefabInstance:
     - target: {fileID: 5193747832411542091, guid: 6414b7cfe8a743b4f96392c04472a2b2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5193747832411542091, guid: 6414b7cfe8a743b4f96392c04472a2b2,
         type: 3}

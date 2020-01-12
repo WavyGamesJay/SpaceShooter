@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _shieldVisualizer;
     [SerializeField] private float _fireRate = 0.15f;
     [SerializeField] private float _canFire = -1f;
+    [SerializeField] private float _shieldStrength;
 
     [SerializeField] private int _lives = 3;
 
@@ -75,7 +76,13 @@ public class Player : MonoBehaviour
         else {
             transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * (_speed * _speedMultiplier) * Time.deltaTime);
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.LeftShift)) {
+            _speed *= 1.75f;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift)) {
+            _speed = 5f;
+        }
 
         //Clamp y axis movement
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0), 0);
@@ -104,8 +111,21 @@ public class Player : MonoBehaviour
 
     public void Damage() {
         if(shieldActive == true) {
-            shieldActive = false;
-            _shieldVisualizer.SetActive(false);
+            _shieldStrength--;
+
+            if(_shieldStrength <= 0f) {
+                shieldActive = false;
+                _shieldVisualizer.SetActive(false);
+            }
+
+            SpriteRenderer shield = _shieldVisualizer.GetComponent<SpriteRenderer>();
+            if (_shieldStrength == 2) {
+                shield.color = new Color(1f, 1f, 1f, .75f);
+            }
+            else if(_shieldStrength == 1) {
+                shield.color = new Color(1f, 1f, 1f, .25f);
+            }
+
             return;
         }
 
@@ -138,6 +158,7 @@ public class Player : MonoBehaviour
 
     public void ActivateShield() {
         shieldActive = true;
+        _shieldStrength = 3f;
         _shieldVisualizer.SetActive(true); 
     }
 
