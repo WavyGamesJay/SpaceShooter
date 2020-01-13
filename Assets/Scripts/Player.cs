@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _fireRate = 0.15f;
     [SerializeField] private float _canFire = -1f;
     [SerializeField] private float _shieldStrength;
+    [SerializeField] private float _ammoCount = 15f;
 
     [SerializeField] private int _lives = 3;
 
@@ -96,16 +97,21 @@ public class Player : MonoBehaviour
 
     void FireLaser() {
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire) {
-            _canFire = Time.time + _fireRate;
-            if (tripleShotActive) {
-                Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity); 
-            }
-            else {
-                Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
+            if(_ammoCount > 0) {
+                _canFire = Time.time + _fireRate;
+                if (tripleShotActive) {
+                    Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+                } else {
+                    Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
+                }
+
+                _ammoCount--;
+                _audioSource.Play();
+                
             }
 
-            _audioSource.Play();
-            
+            _uIManager.UpdateAmmoCount(_ammoCount);
+
         }
     }
 
@@ -146,6 +152,25 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void RestoreHealth() {
+        if(_lives < 3) {
+            _lives++;
+            _uIManager.UpdateLives(_lives);
+
+            if (_lives == 2) {
+                _rightEngine.SetActive(false);
+            } else if (_lives == 3) {
+                _leftEngine.SetActive(false);
+            }
+        }
+       
+    }
+
+    public void RestoreAmmo() {
+        _ammoCount = 15f;
+        _uIManager.UpdateAmmoCount(_ammoCount);
+
+    }
     public void ActivateTripleShot() {
         tripleShotActive = true;
         StartCoroutine(TSPowerDown()); 

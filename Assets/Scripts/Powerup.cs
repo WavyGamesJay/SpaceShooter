@@ -37,6 +37,14 @@ public class Powerup : MonoBehaviour
                     case 2:
                         player.ActivateShield();
                         break;
+                    case 3:
+                        player.RestoreHealth();
+                        Debug.Log("Health Collected");
+                        break;
+                    case 4:
+                        player.RestoreAmmo();
+                        Debug.Log("Ammo Collected");
+                        break;
                 }
             }
             Destroy(this.gameObject);

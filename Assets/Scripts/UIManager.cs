@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] Sprite[] _livesSprites;
     [SerializeField] private Text _gameOverText;
     [SerializeField] private Text _restartText;
+    [SerializeField] private Text _ammoText;
+    [SerializeField] private Text _noAmmoIndicator;
 
     [SerializeField] private GameManager _gameManager; 
 
@@ -19,8 +21,11 @@ public class UIManager : MonoBehaviour
     {
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _scoreText.text = "Score: " + 0;
+        _ammoText.text = "Ammo Count: " + 15;
         _gameOverText.gameObject.SetActive(false);
         _restartText.gameObject.SetActive(false);
+        _noAmmoIndicator.gameObject.SetActive(false);
+        
 
         if(_gameManager == null) {
             Debug.LogError("Game Manager is NULL");
@@ -48,6 +53,14 @@ public class UIManager : MonoBehaviour
         _gameManager.GameOver(); 
     }
 
+    public void UpdateAmmoCount(float ammo) {
+        _ammoText.text = "Ammo Count: " + ammo.ToString();
+
+        if(ammo <= 0) {
+            StartCoroutine(NoAmmoIndicator());
+        }
+    }
+
     IEnumerator GameOverFlicker() {
         while(true) {
             _gameOverText.text = "GAME OVER";
@@ -55,5 +68,11 @@ public class UIManager : MonoBehaviour
             _gameOverText.text = "";
             yield return new WaitForSeconds(0.5f);
         }
+    }
+
+    IEnumerator NoAmmoIndicator() {
+        _noAmmoIndicator.gameObject.SetActive(true);
+        yield return new WaitForSeconds(.75f);
+        _noAmmoIndicator.gameObject.SetActive(false);
     }
 }
