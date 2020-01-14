@@ -13,6 +13,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text _restartText;
     [SerializeField] private Text _ammoText;
     [SerializeField] private Text _noAmmoIndicator;
+    [SerializeField] private Text _thrustExhaustIndicator;
+    [SerializeField] private Text _refuelingText;
+    [SerializeField] private Image _thrusterChargeBar;
 
     [SerializeField] private GameManager _gameManager; 
 
@@ -61,6 +64,20 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void UpdateThrusterUI(float thrustPower) {
+        _thrusterChargeBar.fillAmount = thrustPower / 10f;
+        if(thrustPower <= 0) {
+            StartCoroutine(ThrustExhaustedRoutine());
+        }
+    }
+
+    public void StartRefuel() {       
+        _refuelingText.gameObject.SetActive(true);
+    }
+    public void EndRefuel() {
+        _refuelingText.gameObject.SetActive(false);
+    }
+
     IEnumerator GameOverFlicker() {
         while(true) {
             _gameOverText.text = "GAME OVER";
@@ -74,5 +91,11 @@ public class UIManager : MonoBehaviour
         _noAmmoIndicator.gameObject.SetActive(true);
         yield return new WaitForSeconds(.75f);
         _noAmmoIndicator.gameObject.SetActive(false);
+    }
+
+    IEnumerator ThrustExhaustedRoutine() {
+        _thrustExhaustIndicator.gameObject.SetActive(true);
+        yield return new WaitForSeconds(.75f);
+        _thrustExhaustIndicator.gameObject.SetActive(false);
     }
 }

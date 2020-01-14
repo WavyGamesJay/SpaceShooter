@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
 
     [SerializeField] private float _speed = 5f;
+    [SerializeField] private float _thrusterSpeed = 8.75f;
     [SerializeField] private float _speedMultiplier = 2f;
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private GameObject _tripleShotPrefab;
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float _canFire = -1f;
     [SerializeField] private float _shieldStrength;
     [SerializeField] private float _ammoCount = 15f;
+    [SerializeField] private float _thrusterPower = 10f;
+    [SerializeField] private bool _thrusterCooldown;
 
     [SerializeField] private int _lives = 3;
 
@@ -57,6 +60,8 @@ public class Player : MonoBehaviour
         else {
             _audioSource.clip = _laserShotClip;
         }
+
+        _thrusterCooldown = false;
     }
 
     // Update is called once per frame
@@ -64,7 +69,10 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
         FireLaser();
+        _uIManager.UpdateThrusterUI(_thrusterPower);
         
+        
+
     }
 
     void CalculateMovement() {
@@ -78,12 +86,34 @@ public class Player : MonoBehaviour
             transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * (_speed * _speedMultiplier) * Time.deltaTime);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift)) {
-            _speed *= 1.75f;
+        //Thruster Logic
+        //if (Input.GetKeyDown(KeyCode.LeftShift) && _thrusterCooldown == false) {
+        //   _speed *= 1.75f;
+        //}
+
+        if (Input.GetKey(KeyCode.LeftShift) && _thrusterCooldown == false) {
+            _speed = _thrusterSpeed;
+            _thrusterPower -= 2 * Time.deltaTime;
+            
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift)) {
             _speed = 5f;
+
+        } else {
+            _thrusterPower += 2 * Time.deltaTime;
         }
+
+        if(_thrusterPower <= 0) {
+            _thrusterCooldown = true;
+            _speed = 5f;
+            _uIManager.StartRefuel();
+        }
+        if(_thrusterPower >= 10f) {
+            _thrusterCooldown = false;
+            _uIManager.EndRefuel();
+        }
+
+       _thrusterPower = Mathf.Clamp(_thrusterPower, 0f, 10f);
 
         //Clamp y axis movement
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0), 0);
