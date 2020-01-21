@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
     private UIManager _uIManager;
     private AudioSource _audioSource;
+    private CameraShake _cameraShake;
 
     [SerializeField] private bool tripleShotActive = false;
     [SerializeField] private bool speedBoostActive = false;
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private AudioClip _laserShotClip;
     
+    
 
 
     // Start is called before the first frame update
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _audioSource = GetComponent<AudioSource>();
+        _cameraShake = Camera.main.GetComponent<CameraShake>();
 
         if(_spawnManager == null) {
             Debug.LogError("Spawn Manager is NULL");
@@ -54,6 +57,9 @@ public class Player : MonoBehaviour
             Debug.LogError("UI Manager is NULL");
         }
 
+        if(_cameraShake == null) {
+            Debug.LogError("Camera Shake is NULL");
+        }
         if(_audioSource == null) {
             Debug.LogError("Audio Source is NULL: " + this.gameObject.name);
         }
@@ -180,6 +186,8 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
             _uIManager.GameOver(true);
         }
+
+        _cameraShake.CameraShaking();
     }
 
     public void RestoreHealth() {
