@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private GameObject _tripleShotPrefab;
     [SerializeField] private GameObject _shieldVisualizer;
+    [SerializeField] private GameObject _homingMissilePrefab;
     [SerializeField] private float _fireRate = 0.15f;
     [SerializeField] private float _canFire = -1f;
     [SerializeField] private float _shieldStrength;
@@ -26,6 +27,7 @@ public class Player : MonoBehaviour
     private CameraShake _cameraShake;
 
     [SerializeField] private bool tripleShotActive = false;
+    [SerializeField] private bool homingMissileActive = false;
     [SerializeField] private bool speedBoostActive = false;
     [SerializeField] private bool shieldActive = false;
 
@@ -137,11 +139,14 @@ public class Player : MonoBehaviour
                 _canFire = Time.time + _fireRate;
                 if (tripleShotActive) {
                     Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+                    _ammoCount--;
+                } else if (homingMissileActive) {
+                    Instantiate(_homingMissilePrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
                 } else {
                     Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
+                    _ammoCount--;
                 }
-
-                _ammoCount--;
+       
                 _audioSource.Play();
                 
             }

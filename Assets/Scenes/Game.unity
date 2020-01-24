@@ -260,6 +260,8 @@ MonoBehaviour:
   _tripleShotPrefab: {fileID: 8739393021732477658, guid: dad682e091320db458b656f51d6e7bc7,
     type: 3}
   _shieldVisualizer: {fileID: 56821353}
+  _homingMissilePrefab: {fileID: 722338109475857957, guid: dacaf4fdb33ca6247a955661ba17dff4,
+    type: 3}
   _fireRate: 0.15
   _canFire: -1
   _shieldStrength: 0
@@ -268,6 +270,7 @@ MonoBehaviour:
   _thrusterCooldown: 0
   _lives: 3
   tripleShotActive: 0
+  homingMissileActive: 0
   speedBoostActive: 0
   shieldActive: 0
   _score: 0
