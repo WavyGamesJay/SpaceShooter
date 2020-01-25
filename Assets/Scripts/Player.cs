@@ -137,7 +137,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire) {
             if(_ammoCount > 0) {
                 _canFire = Time.time + _fireRate;
-                if (tripleShotActive) {
+                if (tripleShotActive && !homingMissileActive) {
                     Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
                     _ammoCount--;
                 } else if (homingMissileActive) {
@@ -234,6 +234,11 @@ public class Player : MonoBehaviour
         _score += points;
         _uIManager.UpdateScore(_score);
     }
+
+    public void ActiaveHomingMissile() {
+        homingMissileActive = true;
+        StartCoroutine(HMPowerDownRoutine());
+    }
     //Communicate with the UI to update score
 
     IEnumerator TSPowerDown() {
@@ -245,6 +250,11 @@ public class Player : MonoBehaviour
     IEnumerator SBPowerDown() {
         yield return new WaitForSeconds(5f);
         speedBoostActive = false;
+    }
+
+    IEnumerator HMPowerDownRoutine() {
+        yield return new WaitForSeconds(5f);
+        homingMissileActive = false;
     }
 
 

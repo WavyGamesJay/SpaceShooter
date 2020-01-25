@@ -45,6 +45,9 @@ public class Powerup : MonoBehaviour
                         player.RestoreAmmo();
                         Debug.Log("Ammo Collected");
                         break;
+                    case 5:
+                        player.ActiaveHomingMissile();
+                        break;
                 }
             }
             Destroy(this.gameObject);

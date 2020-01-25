@@ -66,6 +66,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public bool GetIsAlive() {
+        if (_isAlive) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 
 
     private void OnTriggerEnter2D(Collider2D other) {
