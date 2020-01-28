@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private bool _isGameOver = false;
 
+    private void Start() {
+        
+    }
     private void Update() {
         if(Input.GetKeyDown(KeyCode.R) && _isGameOver == true) {
             SceneManager.LoadScene(1); //Current Game Scene

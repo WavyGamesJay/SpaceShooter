@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text _noAmmoIndicator;
     [SerializeField] private Text _thrustExhaustIndicator;
     [SerializeField] private Text _refuelingText;
+    [SerializeField] private Text _waveText; 
     [SerializeField] private Image _thrusterChargeBar;
 
     [SerializeField] private GameManager _gameManager; 
@@ -24,7 +25,7 @@ public class UIManager : MonoBehaviour
     {
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _scoreText.text = "Score: " + 0;
-        _ammoText.text = "Ammo Count: " + 15;
+        _ammoText.text = "Ammo Count: " + 15 + " : 15";
         _gameOverText.gameObject.SetActive(false);
         _restartText.gameObject.SetActive(false);
         _noAmmoIndicator.gameObject.SetActive(false);
@@ -57,7 +58,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void UpdateAmmoCount(float ammo) {
-        _ammoText.text = "Ammo Count: " + ammo.ToString();
+        _ammoText.text = "Ammo Count: " + ammo.ToString() + " : 15";
 
         if(ammo <= 0) {
             StartCoroutine(NoAmmoIndicator());
@@ -76,6 +77,11 @@ public class UIManager : MonoBehaviour
     }
     public void EndRefuel() {
         _refuelingText.gameObject.SetActive(false);
+    }
+
+    public void NewWave(int wave) {
+        StartCoroutine(NewWaveFlicker());
+        _waveText.text = "WAVE " + wave;
     }
 
     IEnumerator GameOverFlicker() {
@@ -97,5 +103,16 @@ public class UIManager : MonoBehaviour
         _thrustExhaustIndicator.gameObject.SetActive(true);
         yield return new WaitForSeconds(.75f);
         _thrustExhaustIndicator.gameObject.SetActive(false);
+    }
+
+    IEnumerator NewWaveFlicker() {
+        _waveText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(.75f);
+        _waveText.gameObject.SetActive(false);
+        yield return new WaitForSeconds(.75f);
+        _waveText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(.75f);
+        _waveText.gameObject.SetActive(false);
+
     }
 }
