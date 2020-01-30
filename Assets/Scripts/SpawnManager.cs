@@ -71,13 +71,23 @@ public class SpawnManager : MonoBehaviour
 
             //5% chance to spawn a rare powerup
             if(rand >= 95) {
-                int rarePowerup = Random.Range(5, 6);
+                int legendaryPowerup = Random.Range(6, 7);
+                Instantiate(_powerups[legendaryPowerup], posToSpawn, Quaternion.identity);
+                yield return new WaitForSeconds(Random.Range(3f, 7f));
+            }
+            else if(rand >= 80) {
+                int rarePowerup = Random.Range(4, 5);
                 Instantiate(_powerups[rarePowerup], posToSpawn, Quaternion.identity);
                 yield return new WaitForSeconds(Random.Range(3f, 7f));
             }
+            else if(rand >= 50) {
+                int uncommonPowerup = Random.Range(1, 4);
+                Instantiate(_powerups[uncommonPowerup], posToSpawn, Quaternion.identity);
+                yield return new WaitForSeconds(Random.Range(3f, 7f));
+            }
             else {
-                int normalPowerup = Random.Range(0, 5);
-                Instantiate(_powerups[normalPowerup], posToSpawn, Quaternion.identity);
+                int commonPowerup = Random.Range(0, 1);
+                Instantiate(_powerups[commonPowerup], posToSpawn, Quaternion.identity);
                 yield return new WaitForSeconds(Random.Range(3f, 7f));
             }
             

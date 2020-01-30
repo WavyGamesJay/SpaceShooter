@@ -28,26 +28,29 @@ public class Powerup : MonoBehaviour
             AudioSource.PlayClipAtPoint(_clip, transform.position);
             if(player != null) {
                 switch (powerupID) {
+                    // Common Powerups
                     case 0:
+                        player.RestoreAmmo();
+                        break;
+                    //Rare Powerups
+                    case 1:
                         player.ActivateTripleShot();
                         break;
-                    case 1:
+                    case 2:
                         player.ActivateSpeedBoost();
                         break;
-                    case 2:
+                    case 3:
                         player.ActivateShield();
                         break;
-                    case 3:
-                        player.RestoreHealth();
-                        Debug.Log("Health Collected");
-                        break;
+                    //Rare Powerups
                     case 4:
-                        player.RestoreAmmo();
-                        Debug.Log("Ammo Collected");
+                        player.RestoreHealth();
                         break;
+                    //Legendary Powerups
                     case 5:
                         player.ActiaveHomingMissile();
                         break;
+
                 }
             }
             Destroy(this.gameObject);
