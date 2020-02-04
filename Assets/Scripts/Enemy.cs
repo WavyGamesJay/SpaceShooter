@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
             _fireRate = Random.Range(3f, 7f);
             _canFire = Time.time + _fireRate;
             GameObject enemyLaser = Instantiate(_enemyLaser, transform.position, Quaternion.identity);
-            //Debug.Break();
+            Debug.Break();
             Laser[] lasers = enemyLaser.GetComponentsInChildren<Laser>();
             
             for(int i = 0; i < lasers.Length; i++ ) {
@@ -86,7 +86,7 @@ public class Enemy : MonoBehaviour
             Player player = other.transform.GetComponent<Player>();
 
             if(player != null) {
-                player.Damage();
+                player.Damage(2);
             }
 
             _anim.SetTrigger("OnEnemyDeath");

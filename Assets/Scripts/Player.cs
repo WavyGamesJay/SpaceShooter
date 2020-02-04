@@ -160,7 +160,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Damage() {
+    public void Damage(int dmg) {
         if(shieldActive == true) {
             _shieldStrength--;
 
@@ -180,7 +180,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        _lives--;
+        _lives -= dmg;
         _uIManager.UpdateLives(_lives);
 
         if(_lives == 2) {

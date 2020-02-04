@@ -54,7 +54,7 @@ public class Laser : MonoBehaviour
         if (other.tag == "Player" && _isEnemyLaser) {
             Player player = other.GetComponent<Player>();
             if(player != null) {
-                player.Damage();
+                player.Damage(1);
                 Destroy(this.gameObject);
             }
         }
