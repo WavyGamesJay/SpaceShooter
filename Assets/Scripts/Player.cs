@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool homingMissileActive = false;
     [SerializeField] private bool speedBoostActive = false;
     [SerializeField] private bool shieldActive = false;
+    [SerializeField] private bool speedDownActive = false;
 
     [SerializeField] private int _score;
     
@@ -87,9 +88,12 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        if(speedBoostActive == false) {
+        if(speedBoostActive == false && speedDownActive == false) {
             transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * _speed * Time.deltaTime);
         } 
+        else if(speedDownActive == true) {
+            transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * (_speed / 2) * Time.deltaTime);
+        }
         else {
             transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * (_speed * _speedMultiplier) * Time.deltaTime);
         }
@@ -239,6 +243,12 @@ public class Player : MonoBehaviour
         homingMissileActive = true;
         StartCoroutine(HMPowerDownRoutine());
     }
+    
+    public void SpeedDown() {
+        speedDownActive = true;
+        StartCoroutine(SpeedDownRoutine());
+    }
+
     //Communicate with the UI to update score
 
     IEnumerator TSPowerDown() {
@@ -255,6 +265,11 @@ public class Player : MonoBehaviour
     IEnumerator HMPowerDownRoutine() {
         yield return new WaitForSeconds(5f);
         homingMissileActive = false;
+    }
+
+    IEnumerator SpeedDownRoutine() {
+        yield return new WaitForSeconds(5f);
+        speedDownActive = false;
     }
 
 

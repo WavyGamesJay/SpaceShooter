@@ -273,6 +273,7 @@ MonoBehaviour:
   homingMissileActive: 0
   speedBoostActive: 0
   shieldActive: 0
+  speedDownActive: 0
   _score: 0
   _rightEngine: {fileID: 1965147891}
   _leftEngine: {fileID: 214626592}
@@ -1290,11 +1291,12 @@ MonoBehaviour:
     type: 3}
   _enemyContainer: {fileID: 672922720}
   _powerups:
+  - {fileID: 4001897567026906693, guid: 1f3978c68ac3e8b4fb294bf4e1676aa5, type: 3}
   - {fileID: 3075758488260536249, guid: aea6db47aaed89d4487ce64d507e8156, type: 3}
   - {fileID: 5949977192754281978, guid: 5a6fb1a3067595940a622db6b7a15514, type: 3}
   - {fileID: 9095062480503294799, guid: 5cdbb7c7f0d339749ae5d8ef0de2deaa, type: 3}
+  - {fileID: 6944522724296226627, guid: 7e746145e28a07144a11e4e7d77855ab, type: 3}
   - {fileID: 7163599066167119696, guid: 7400328903d5944478611f38fbf3cbb3, type: 3}
-  - {fileID: 4001897567026906693, guid: 1f3978c68ac3e8b4fb294bf4e1676aa5, type: 3}
   - {fileID: 1513955995217622666, guid: 2e468bc8e5df07c4f861d8ea4817c369, type: 3}
   _wave: 0
   _enemiesSpawned: 0

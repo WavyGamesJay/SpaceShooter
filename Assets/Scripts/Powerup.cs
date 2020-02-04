@@ -32,7 +32,7 @@ public class Powerup : MonoBehaviour
                     case 0:
                         player.RestoreAmmo();
                         break;
-                    //Rare Powerups
+                    //Uncommon Powerups
                     case 1:
                         player.ActivateTripleShot();
                         break;
@@ -41,13 +41,16 @@ public class Powerup : MonoBehaviour
                         break;
                     case 3:
                         player.ActivateShield();
+                        break;                  
+                    case 4:
+                        player.SpeedDown();
                         break;
                     //Rare Powerups
-                    case 4:
+                    case 5:
                         player.RestoreHealth();
                         break;
                     //Legendary Powerups
-                    case 5:
+                    case 6:
                         player.ActiaveHomingMissile();
                         break;
 

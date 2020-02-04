@@ -76,12 +76,12 @@ public class SpawnManager : MonoBehaviour
                 yield return new WaitForSeconds(Random.Range(3f, 7f));
             }
             else if(rand >= 80) {
-                int rarePowerup = Random.Range(4, 5);
+                int rarePowerup = Random.Range(5, 6);
                 Instantiate(_powerups[rarePowerup], posToSpawn, Quaternion.identity);
                 yield return new WaitForSeconds(Random.Range(3f, 7f));
             }
             else if(rand >= 50) {
-                int uncommonPowerup = Random.Range(1, 4);
+                int uncommonPowerup = Random.Range(1, 5);
                 Instantiate(_powerups[uncommonPowerup], posToSpawn, Quaternion.identity);
                 yield return new WaitForSeconds(Random.Range(3f, 7f));
             }
