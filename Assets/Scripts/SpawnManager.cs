@@ -5,9 +5,10 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
 
-    [SerializeField] GameObject _enemyPrefab;
+    //[SerializeField] GameObject _enemyPrefab;
     [SerializeField] GameObject _enemyContainer;
     [SerializeField] GameObject[] _powerups;
+    [SerializeField] GameObject[] _enemies;
 
     [SerializeField] private int _wave;
     [SerializeField] private int _enemiesSpawned = 0;
@@ -16,7 +17,7 @@ public class SpawnManager : MonoBehaviour
 
     public UIManager _uiManager;
 
-    private bool _stopSpawning = false; 
+    [SerializeField] private bool _stopSpawning = false; 
 
     // Start is called before the first frame update
     void Start()
@@ -47,9 +48,10 @@ public class SpawnManager : MonoBehaviour
         UpdateWave();
         yield return new WaitForSeconds(4.0f);
 
-        while (_enemiesSpawned < _enemiesPerWave) {
+        while (_enemiesSpawned < _enemiesPerWave && _stopSpawning == false) {
+            int enemyID = Random.Range(0, 2);
             Vector3 spawnPos = new Vector3(Random.Range(-8f, 8f), 7, 0);
-            GameObject newEnemy = Instantiate(_enemyPrefab, spawnPos, Quaternion.identity);
+            GameObject newEnemy = Instantiate(_enemies[enemyID], spawnPos, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
             _enemiesSpawned++;
             yield return new WaitForSeconds(_timeBetweenSpawns);  
@@ -96,6 +98,7 @@ public class SpawnManager : MonoBehaviour
     }
 
     public void OnPlayerDeath() {
-        _stopSpawning = true; 
+        _stopSpawning = true;
+        Debug.Log("Stop Spawning BICHHHH");
     }
 }

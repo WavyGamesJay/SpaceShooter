@@ -181,16 +181,20 @@ public class Player : MonoBehaviour
         }
 
         _lives -= dmg;
+        _lives = Mathf.Clamp(_lives, 0, 4);
         _uIManager.UpdateLives(_lives);
 
-        if(_lives == 2) {
+        if(_lives <= 2) {
             _leftEngine.SetActive(true);
         }
-        else if(_lives == 1) {
+
+        if(_lives <= 1) {
             _rightEngine.SetActive(true);
         }
 
         if(_lives < 1) {
+            Debug.Log("Game is Over... BRO!");
+            _lives = 0;
             _spawnManager.OnPlayerDeath(); 
             Destroy(this.gameObject);
             _uIManager.GameOver(true);

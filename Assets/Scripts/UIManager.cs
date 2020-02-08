@@ -47,6 +47,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void UpdateLives(int currentLives) {
+        Debug.Log(currentLives);
         _livesImage.sprite = _livesSprites[currentLives];
     }
 

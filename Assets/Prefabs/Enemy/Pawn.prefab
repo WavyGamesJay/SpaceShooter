@@ -9,14 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9097415896906620580}
-  - component: {fileID: 1621686425380408448}
   - component: {fileID: 8698213721612794661}
   - component: {fileID: 8534084864603288425}
+  - component: {fileID: 2971538736167632312}
   - component: {fileID: 2403266249318764811}
   - component: {fileID: 6680272321590576399}
   - component: {fileID: 3175411018308838285}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Pawn
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,21 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1621686425380408448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4436626870915720764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67af869dab84054498e30fdb23265e11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 1.5
-  _enemyLaser: {fileID: 9221327964414871361, guid: f2d9a667248b05d4b8e0482130b30bc7,
-    type: 3}
 --- !u!212 &8698213721612794661
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -121,6 +106,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2971538736167632312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4436626870915720764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 440f8f73040302b4cb93fd5633143808, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 2
+  _lives: 1
+  _enemyLaser: {fileID: 9221327964414871361, guid: f2d9a667248b05d4b8e0482130b30bc7,
+    type: 3}
 --- !u!61 &2403266249318764811
 BoxCollider2D:
   m_ObjectHideFlags: 0
